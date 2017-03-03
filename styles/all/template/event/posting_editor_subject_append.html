@@ -1,0 +1,10 @@
+</dd>
+<dt><label for="subject_colour">{L_SUBJECT_COLOUR}{L_COLON}</label></dt>
+<dd>
+    <input type="checkbox" name="subject_colour" id="subject_colour" <!-- IF SUBJECT_COLOUR -->checked="checked" <!-- ENDIF -->onclick="$('#color_palette_placeholder').toggle();"/>
+    {L_SUBJECT}
+    <div>
+
+    </div>
+</dd>
+<dd<!-- IF not SUBJECT_COLOUR --> style="display: none"<!-- ENDIF --> id="color_palette_placeholder" class="color_palette_placeholder" data-orientation="h" data-height="10" data-width="13" data-bbcode="false">

@@ -1,0 +1,7 @@
+services:
+    davidiq.subjectcolor.listener:
+        class: davidiq\subjectcolor\event\main_listener
+        arguments:
+            - @user
+        tags:
+            - { name: event.listener }
