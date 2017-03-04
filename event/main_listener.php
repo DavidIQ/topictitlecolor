@@ -268,6 +268,11 @@ class main_listener implements EventSubscriberInterface
 			$title_color_rows = $this->db->sql_fetchrowset($result);
 			$this->db->sql_freeresult($result);
 
+			if (!$title_color_rows)
+			{
+				return;
+			}
+
 			if (!$topic_rowset)
 			{
 				$this->title_color = $title_color_rows[0]['title_color'];
