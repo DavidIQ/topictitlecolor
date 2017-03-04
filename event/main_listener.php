@@ -121,7 +121,7 @@ class main_listener implements EventSubscriberInterface
 		$topic_id = (int) $data['topic_id'];
 
 		// If it's the first post we take care of the title color
-		if ($post_id == (int) $data['topic_first_post_id'])
+		if (($post_id == (int) $data['topic_first_post_id']) || (!$data['topic_first_post_id'] && $event['mode'] == 'post'))
 		{
 			$sql = "DELETE FROM
 					{$this->table_prefix}topic_title_colors
@@ -139,7 +139,6 @@ class main_listener implements EventSubscriberInterface
 				{
 					$sql = "INSERT INTO {$this->table_prefix}topic_title_colors " . $this->db->sql_build_array('INSERT', array(
 							'topic_id'		=> $topic_id,
-							'post_id'		=> $post_id,
 							'title_color'	=> $color_matches[0],
 						));
 					$this->db->sql_query($sql);
