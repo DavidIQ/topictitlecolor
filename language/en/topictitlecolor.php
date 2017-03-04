@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * subjectcolor [English]
+ * titlecolor [English]
  *
  * @package language
  * @copyright (c) 2017 DavidIQ.com
@@ -36,6 +36,7 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'SUBJECT_COLOUR'		=> 'Subject colour',
+	'TITLE_COLOUR'		=> 'Title colour',
+	'NO_TITLE_COLOR'		=> 'NONE',
 ));
 

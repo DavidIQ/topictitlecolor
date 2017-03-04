@@ -8,28 +8,23 @@
  *
  */
 
-namespace davidiq\subjectcolor\migrations;
+namespace davidiq\topictitlecolor\migrations;
 
-class install_subject_color_schema extends \phpbb\db\migration\migration
+class initial_schema extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return $this->db_tools->sql_table_exists($this->table_prefix . 'subject_color');
-	}
-
-	static public function depends_on()
-	{
-		return array('\phpbb\db\migration\data\v31x\v314');
+		return $this->db_tools->sql_table_exists($this->table_prefix . 'topic_title_colors');
 	}
 
 	public function update_schema()
 	{
 		return array(
 			'add_tables'		=> array(
-				$this->table_prefix . 'subject_color'	=> array(
+				$this->table_prefix . 'topic_title_colors'	=> array(
 					'COLUMNS'		=> array(
 						'topic_id'			=> array('UINT', 0),
-						'subject_color'		=> array('VCHAR:6', ''),
+						'title_color'		=> array('VCHAR:6', ''),
 					),
 					'PRIMARY_KEY'	=> 'topic_id',
 				),
@@ -41,7 +36,7 @@ class install_subject_color_schema extends \phpbb\db\migration\migration
 	{
 		return array(
 			'drop_tables'		=> array(
-				$this->table_prefix . 'subject_color',
+				$this->table_prefix . 'topic_title_colors',
 			),
 		);
 	}

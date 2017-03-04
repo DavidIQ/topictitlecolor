@@ -1,10 +1,28 @@
+<!-- IF S_TOPIC_TITLE_COLOR -->
 </dd>
-<dt><label for="subject_colour">{L_SUBJECT_COLOUR}{L_COLON}</label></dt>
+<dt><label for="title_colour">{L_TITLE_COLOUR}{L_COLON}</label></dt>
 <dd>
-    <input type="checkbox" name="subject_colour" id="subject_colour" <!-- IF SUBJECT_COLOUR -->checked="checked" <!-- ENDIF -->onclick="$('#color_palette_placeholder').toggle();"/>
-    {L_SUBJECT}
-    <div>
-
-    </div>
+    <input type="text" name="title_color" id="title_color" value="<!-- IF TITLE_COLOR -->{TITLE_COLOR}<!-- ELSE -->{L_NO_TITLE_COLOR}<!-- ENDIF -->" class="inputbox" style="width: 75px; font-weight: bold; text-align: center;<!-- IF TITLE_COLOR --> background-color: #{TITLE_COLOR};<!-- ENDIF -->" readonly /><input type="button" class="button1" onclick="$('#title_color').val('{L_NO_TITLE_COLOR}')" value="{L_RESET}" />
+    <script>
+        var title_color = '{TITLE_COLOR}';
+        window.setInterval(function() {
+            var title_color_text = document.getElementById('title_color'),
+                title_color_value = title_color_text.value;
+            if (title_color_value != title_color)
+            {
+                title_color = title_color_value;
+                if (title_color_value == '{L_NO_TITLE_COLOR}')
+                {
+                    title_color_text.style.backgroundColor = '';
+                }
+                else
+                {
+                    title_color_text.style.backgroundColor = '#' + title_color_value;
+                }
+            }
+        }, 50);
+    </script>
 </dd>
-<dd<!-- IF not SUBJECT_COLOUR --> style="display: none"<!-- ENDIF --> id="color_palette_placeholder" class="color_palette_placeholder" data-orientation="h" data-height="10" data-width="13" data-bbcode="false">
+<dd id="color_palette_placeholder" class="color_palette_placeholder" data-orientation="h" data-height="10" data-width="13" data-target="#title_color">
+<!-- ENDIF -->
+<!-- INCLUDE @davidiq_topictitlecolor/topic_title_color_style.html -->
