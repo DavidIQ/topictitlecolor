@@ -103,7 +103,12 @@ class main_listener implements EventSubscriberInterface
 		if ($mode == 'post' || ($post_id == $topic_first_post_id))
 		{
 			$this->user->add_lang_ext('davidiq/topictitlecolor', 'topictitlecolor');
-			$this->template->assign_var('S_TOPIC_TITLE_COLOR', true);
+			$title_color = strtoupper($this->request->variable('title_color', ''));
+			$this->template->assign_vars(array(
+				'S_TOPIC_TITLE_COLOR'	=> true,
+				'TITLE_COLOR'			=> $title_color,
+				'S_TOPIC_PREVIEW'		=> true,
+			));
 		}
 
 		$this->get_topic_color($topic_id);

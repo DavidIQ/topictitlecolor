@@ -1,6 +1,7 @@
 <!-- IF TITLE_COLOR -->
 <style>
-    .posting-title a,
+    <!-- IF S_TOPIC_PREVIEW -->div.postbody h3,<!-- ENDIF -->
+    <!-- IF not S_TOPIC_PREVIEW -->.posting-title a,<!-- ENDIF -->
     .topic-title a {
         color: #{TITLE_COLOR} !important;
     }
