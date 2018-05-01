@@ -100,7 +100,7 @@ class main_listener implements EventSubscriberInterface
 			$this->db->sql_freeresult($result);
 		}
 
-		if ($mode == 'post' || ($post_id == $topic_first_post_id))
+		if ($mode == 'post' || ($post_id > 0 && $post_id == $topic_first_post_id))
 		{
 			$this->user->add_lang_ext('davidiq/topictitlecolor', 'topictitlecolor');
 			$title_color = strtoupper($this->request->variable('title_color', ''));
