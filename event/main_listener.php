@@ -208,6 +208,11 @@ class main_listener implements EventSubscriberInterface
 				$forum_last_post_ids[] = $row['forum_last_post_id'];
 			}
 		}
+		
+		if (!count($forum_last_post_ids))
+		{
+			return;
+		}
 
 		$sql_array = array(
 			'SELECT'	=> 'sc.topic_id, sc.title_color, p.post_id',
