@@ -2,10 +2,10 @@ services:
     davidiq.topictitlecolor.listener:
         class: davidiq\topictitlecolor\event\main_listener
         arguments:
-            - @user
-            - @dbal.conn
-            - @template
-            - @request
-            - %core.table_prefix%
+            - '@user'
+            - '@dbal.conn'
+            - '@template'
+            - '@request'
+            - '%core.table_prefix%'
         tags:
             - { name: event.listener }
