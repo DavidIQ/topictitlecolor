@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Adds color to the topic title",
     "homepage": "https://github.com/DavidIQ/topictitlecolor",
-    "version": "1.0.0-rc3",
-    "time": "2017-03-03",
+    "version": "1.0.0-rc4",
+    "time": "2022-12-12",
     "license": "GPL-2.0",
     "authors": [
         {
