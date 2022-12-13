@@ -19,25 +19,25 @@ class initial_schema extends \phpbb\db\migration\migration
 
 	public function update_schema()
 	{
-		return array(
-			'add_tables'		=> array(
-				$this->table_prefix . 'topic_title_colors'	=> array(
-					'COLUMNS'		=> array(
-						'topic_id'			=> array('UINT', 0),
-						'title_color'		=> array('VCHAR:6', ''),
-					),
+		return [
+			'add_tables'		=> [
+				$this->table_prefix . 'topic_title_colors'	=> [
+					'COLUMNS'		=> [
+						'topic_id'			=> ['UINT', 0],
+						'title_color'		=> ['VCHAR:6', ''],
+					],
 					'PRIMARY_KEY'	=> 'topic_id',
-				),
-			),
-		);
+				],
+			],
+		];
 	}
 
 	public function revert_schema()
 	{
-		return array(
-			'drop_tables'		=> array(
+		return [
+			'drop_tables'		=> [
 				$this->table_prefix . 'topic_title_colors',
-			),
-		);
+			],
+		];
 	}
 }

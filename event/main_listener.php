@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Topic Color. An extension for the phpBB Forum Software package.
+ * Topic Title Color. An extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2017, David Colón, https://www.davidiq.com
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -60,7 +60,7 @@ class main_listener implements EventSubscriberInterface
 
 	static public function getSubscribedEvents()
 	{
-		return array(
+		return [
 			'core.modify_posting_auth'					=> 'modify_posting_auth',
 			'core.posting_modify_submit_post_after'		=> 'posting_modify_submit_post_after',
 			'core.viewtopic_modify_page_title'			=> 'viewtopic_modify_page_title',
@@ -68,7 +68,7 @@ class main_listener implements EventSubscriberInterface
 			'core.viewforum_modify_topicrow'			=> 'viewforum_modify_topicrow',
 			'core.display_forums_before'				=> 'display_forums_before',
 			'core.display_forums_modify_template_vars'	=> 'display_forums_modify_template_vars',
-		);
+		];
 	}
 
 	/**
@@ -104,11 +104,11 @@ class main_listener implements EventSubscriberInterface
 		{
 			$this->user->add_lang_ext('davidiq/topictitlecolor', 'topictitlecolor');
 			$title_color = strtoupper($this->request->variable('title_color', ''));
-			$this->template->assign_vars(array(
+			$this->template->assign_vars([
 				'S_TOPIC_TITLE_COLOR'	=> true,
 				'TITLE_COLOR'			=> $title_color,
 				'S_TOPIC_PREVIEW'		=> true,
-			));
+			]);
 		}
 
 		$this->get_topic_color($topic_id);
@@ -142,10 +142,10 @@ class main_listener implements EventSubscriberInterface
 
 				if (is_array($color_matches) && !empty($color_matches[0]))
 				{
-					$sql = "INSERT INTO {$this->table_prefix}topic_title_colors " . $this->db->sql_build_array('INSERT', array(
+					$sql = "INSERT INTO {$this->table_prefix}topic_title_colors " . $this->db->sql_build_array('INSERT', [
 							'topic_id'		=> $topic_id,
 							'title_color'	=> $color_matches[0],
-						));
+						]);
 					$this->db->sql_query($sql);
 				}
 			}
@@ -194,7 +194,7 @@ class main_listener implements EventSubscriberInterface
 	public function display_forums_before($event)
 	{
 		$forum_rows = $event['forum_rows'];
-		$forum_last_post_ids = array();
+		$forum_last_post_ids = [];
 
 		if (!$forum_rows || !count($forum_rows))
 		{
@@ -214,14 +214,14 @@ class main_listener implements EventSubscriberInterface
 			return;
 		}
 
-		$sql_array = array(
+		$sql_array = [
 			'SELECT'	=> 'sc.topic_id, sc.title_color, p.post_id',
-			'FROM'	 	=> array(
+			'FROM'	 	=> [
 				$this->table_prefix . 'posts'				=> 'p',
 				$this->table_prefix . 'topic_title_colors' 	=> 'sc',
-			),
+			],
 			'WHERE'		=> 'p.topic_id = sc.topic_id AND ' . $this->db->sql_in_set('p.post_id', $forum_last_post_ids),
-		);
+		];
 
 		$result = $this->db->sql_query($this->db->sql_build_query('SELECT', $sql_array));
 		$title_color_rows = $this->db->sql_fetchrowset($result);
@@ -265,14 +265,14 @@ class main_listener implements EventSubscriberInterface
 		{
 			if (!is_array($topic_ids))
 			{
-				$topic_ids = array($topic_ids);
+				$topic_ids = [$topic_ids];
 			}
 
-			$sql_array = array(
+			$sql_array = [
 				'SELECT'	=> 'sc.topic_id, sc.title_color',
-				'FROM'	 	=> array($this->table_prefix . 'topic_title_colors' => 'sc'),
+				'FROM'	 	=> [$this->table_prefix . 'topic_title_colors' => 'sc'],
 				'WHERE'		=> $this->db->sql_in_set('sc.topic_id', $topic_ids),
-			);
+			];
 			$result = $this->db->sql_query($this->db->sql_build_query('SELECT', $sql_array));
 			$title_color_rows = $this->db->sql_fetchrowset($result);
 			$this->db->sql_freeresult($result);

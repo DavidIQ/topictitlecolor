@@ -1,17 +1,13 @@
 <?php
 /**
  *
- * titlecolor [English]
+ * Topic Title Color. An extension for the phpBB Forum Software package.
  *
- * @package language
- * @copyright (c) 2017 DavidIQ.com
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @copyright (c) 2022, David Colón, https://www.davidiq.com/
+ * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
 
-/**
- * DO NOT CHANGE
- */
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -34,9 +30,10 @@ if (empty($lang) || !is_array($lang))
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 //
+// Some characters you may want to copy&paste:
+// ’ » “ ” …
+//
 
 $lang = array_merge($lang, [
-	'TITLE_COLOUR'		=> 'Title colour',
-	'NO_TITLE_COLOR'		=> 'NONE',
+	'ACL_F_SETTOPICTITLECOLOR'	=> 'Can set topic title color',
 ]);
-
