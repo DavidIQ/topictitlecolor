@@ -11,7 +11,8 @@
             if (title_color_value != title_color)
             {
                 title_color = title_color_value;
-                if (title_color_value == '{{ lang('NO_TITLE_COLOR')|escape('js') }}')
+                var noTitleColor = '{{ lang('NO_TITLE_COLOR')|escape('js') }}';
+                if (title_color_value == noTitleColor)
                 {
                     title_color_text.style.backgroundColor = '';
                 }
@@ -19,7 +20,7 @@
                 {
                     title_color_text.style.backgroundColor = '#' + title_color_value;
                 }
-                var darkText = ['BFFF00', 'BFFF40', 'BFFF80', 'BFFFBF', 'BFFFFF', 'FFFF00', 'FFFF40', 'FFFF80', 'FFFFBF', 'FFFFFF'];
+                var darkText = [noTitleColor, 'BFFF00', 'BFFF40', 'BFFF80', 'BFFFBF', 'BFFFFF', 'FFFF00', 'FFFF40', 'FFFF80', 'FFFFBF', 'FFFFFF'];
                 title_color_text.style.color = darkText.indexOf(title_color_value) >= 0 ? '#000000' : '#FFFFFF';
             }
         }, 50);
