@@ -14,7 +14,7 @@ class install_permission extends \phpbb\db\migration\migration
 {
     public static function depends_on()
     {
-        return ['\davidiq\topictitlecolor\migrations\install_schema'];
+        return ['\davidiq\topictitlecolor\migrations\initial_schema'];
     }
 
     /**
