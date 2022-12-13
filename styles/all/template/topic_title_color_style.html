@@ -1,9 +1,9 @@
-<!-- IF TITLE_COLOR -->
+{% if TITLE_COLOR %}
 <style>
-    <!-- IF S_TOPIC_PREVIEW -->div.postbody h3,<!-- ENDIF -->
-    <!-- IF not S_TOPIC_PREVIEW -->.posting-title a,<!-- ENDIF -->
+    {% if S_TOPIC_PREVIEW  %}div.postbody h3,{% endif %}
+    {% if not S_TOPIC_PREVIEW  %}.posting-title a,{% endif %}
     .topic-title a {
-        color: #{TITLE_COLOR} !important;
+        color: #{{ TITLE_COLOR }} !important;
     }
 </style>
-<!-- ENDIF -->
+{% endif %}
