@@ -279,7 +279,7 @@ class main_listener implements EventSubscriberInterface
     public function add_permissions($event)
     {
         $permissions = $event['permissions'];
-        $permissions['f_settopictitlecolor'] = ['lang' => 'ACL_F_SETTOPICTITLECOLOR', 'cat' => 'post'];
+        $permissions['f_settopictitlecolor'] = ['lang' => 'ACL_F_SETTOPICTITLECOLOR', 'cat' => 'actions'];
         $event['permissions'] = $permissions;
     }
 
