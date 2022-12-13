@@ -38,29 +38,36 @@ class main_listener implements EventSubscriberInterface
 	/** @var  @var string topic color */
 	protected $title_color = false;
 
+	/** @var \phpbb\auth\auth */
+	protected $auth;
+
 	/**
 	 * Constructor
 	 *
 	 * @param \phpbb\user                 	$user               User object
 	 * @param \phpbb\db\driver\driver_interface $db             dbal object
-	 * @param \phpbb\template\template       $template          Template engine
-	 * @param \phpbb\request\request         $request           Request object
+	 * @param \phpbb\template\template      $template          Template engine
+	 * @param \phpbb\request\request        $request           Request object
+	 * @param \phpbb\auth\auth 				$auth Auth object
 	 * @param string						$table_prefix		Table prefix
+	 * 
 	 * @return \davidiq\topictitlecolor\event\listener
 	 * @access public
 	 */
-	public function __construct(\phpbb\user $user, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\request\request $request, $table_prefix)
+	public function __construct(\phpbb\user $user, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\request\request $request, \phpbb\auth\auth $auth, $table_prefix)
 	{
 		$this->user = $user;
 		$this->db = $db;
 		$this->template = $template;
 		$this->request = $request;
 		$this->table_prefix = $table_prefix;
+		$this->auth = $auth;
 	}
 
 	static public function getSubscribedEvents()
 	{
 		return [
+			'core.permissions' 							=> 'add_permissions',
 			'core.modify_posting_auth'					=> 'modify_posting_auth',
 			'core.posting_modify_submit_post_after'		=> 'posting_modify_submit_post_after',
 			'core.viewtopic_modify_page_title'			=> 'viewtopic_modify_page_title',
@@ -82,6 +89,12 @@ class main_listener implements EventSubscriberInterface
 		$topic_id = false;
 		$topic_first_post_id = false;
 		$post_id = (int) $event['post_id'];
+		$forum_id = (int) $event['forum_id'];
+
+		if (!$this->can_set_topic_title_color($forum_id))
+		{
+			return;
+		}
 
 		// See if the current post is the first post
 		if ($mode == 'edit' && $post_id)
@@ -124,6 +137,12 @@ class main_listener implements EventSubscriberInterface
 		$data = $event['data'];
 		$post_id = (int) $data['post_id'];
 		$topic_id = (int) $data['topic_id'];
+		$forum_id = (int) $event['forum_id'];
+
+		if (!$this->can_set_topic_title_color($forum_id))
+		{
+			return;
+		}
 
 		// If it's the first post we take care of the title color
 		if (($post_id == (int) $data['topic_first_post_id']) || (!$data['topic_first_post_id'] && $event['mode'] == 'post'))
@@ -253,6 +272,18 @@ class main_listener implements EventSubscriberInterface
 	}
 
 	/**
+     * Add permissions to the ACP -> Permissions settings page
+     *
+     * @param \phpbb\event\data $event Event object
+     */
+    public function add_permissions($event)
+    {
+        $permissions = $event['permissions'];
+        $permissions['f_settopictitlecolor'] = ['lang' => 'ACL_F_SETTOPICTITLECOLOR', 'cat' => 'post'];
+        $event['permissions'] = $permissions;
+    }
+
+	/**
 	 * Retrieve the title color
 	 *
 	 * @param $topic_ids 	array 			the topic id array for which to retrieve the color
@@ -317,4 +348,15 @@ class main_listener implements EventSubscriberInterface
 		}
 		return $list_row;
 	}
+
+	/**
+     * Determines if the user can set the topic title color
+     *
+     * @param int $forum_id The forum ID
+     * @return bool|mixed
+     */
+    public function can_set_topic_title_color(int $forum_id)
+    {
+        return $this->auth->acl_get('f_settopictitlecolor', $forum_id);
+    }
 }
